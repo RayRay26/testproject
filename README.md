@@ -25,6 +25,15 @@ The script will:
 2. Upgrade `pip`.
 3. Install dependencies from `requirements.txt`.
 
+If virtual environment creation fails because `ensurepip` is unavailable (common on minimal Debian/Ubuntu installs), install the matching venv package and rerun:
+
+```bash
+sudo apt install python3.13-venv
+./install.sh
+```
+
+If your Python version is different, replace `3.13` with your version (for example, `python3.12-venv`).
+
 ### Windows (PowerShell)
 Use these commands:
 
