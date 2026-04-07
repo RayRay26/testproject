@@ -12,26 +12,39 @@ This project is a simple command-line app that translates any text you enter fro
 - Python 3.9+
 - Internet connection (translation uses an online translation service)
 
-## Setup
-1. (Optional) Create and activate a virtual environment:
-   - macOS/Linux:
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate
-     ```
-   - Windows (PowerShell):
-     ```powershell
-     py -m venv .venv
-     .venv\Scripts\Activate.ps1
-     ```
+## Installation
+### macOS/Linux
+Use the installation script:
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+./install.sh
+```
+
+The script will:
+1. Create a `.venv` virtual environment (if it doesn't already exist).
+2. Upgrade `pip`.
+3. Install dependencies from `requirements.txt`.
+
+### Windows (PowerShell)
+Use these commands:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
 
 ## Run the app
+### macOS/Linux
 ```bash
+source .venv/bin/activate
+python translator_app.py
+```
+
+### Windows (PowerShell)
+```powershell
+.venv\Scripts\Activate.ps1
 python translator_app.py
 ```
 
