@@ -4,6 +4,7 @@ set -euo pipefail
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${PROJECT_ROOT}/.venv"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
+VENV_ACTIVATE="$VENV_DIR/bin/activate"
 
 if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
   echo "Error: '$PYTHON_BIN' is not installed or not on PATH." >&2
@@ -12,15 +13,22 @@ fi
 
 echo "Using Python: $PYTHON_BIN"
 
-if [ ! -d "$VENV_DIR" ]; then
+if [ -d "$VENV_DIR" ]; then
+  if [ ! -f "$VENV_ACTIVATE" ]; then
+    echo "Existing virtual environment at $VENV_DIR is incomplete. Recreating it."
+    rm -rf "$VENV_DIR"
+    echo "Creating virtual environment at $VENV_DIR"
+    "$PYTHON_BIN" -m venv "$VENV_DIR"
+  else
+    echo "Virtual environment already exists at $VENV_DIR"
+  fi
+else
   echo "Creating virtual environment at $VENV_DIR"
   "$PYTHON_BIN" -m venv "$VENV_DIR"
-else
-  echo "Virtual environment already exists at $VENV_DIR"
 fi
 
 # shellcheck disable=SC1091
-source "$VENV_DIR/bin/activate"
+source "$VENV_ACTIVATE"
 
 echo "Upgrading pip..."
 python -m pip install --upgrade pip
